@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Organic_Shop.Models.Role>
+
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Roles</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-tone m-r-5">Create New</a>
+</p>
+<div class="table-responsive">
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.RoleId
+            </td>
+            <td>
+                @item.RoleName
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.RoleId" class="btn btn-primary btn-tone"><i class="anticon anticon-eye"></i></a> |
+                <a asp-action="Edit" asp-route-id="@item.RoleId" class="btn btn-success btn-tone"><i class="anticon anticon-edit"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.RoleId" class="btn btn-danger btn-tone"><i class="anticon anticon-delete"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+</div>
+
