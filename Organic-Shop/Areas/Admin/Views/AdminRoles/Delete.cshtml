@@ -30,15 +30,20 @@
                             <td>Description:</td>
                             <td>@Model.Description</td>
                         </tr>
+
+                        <tr>
+                            <td><form asp-action="Delete">
+                                <input type="hidden" asp-for="RoleId" />
+                                <input type="submit" value="Delete" class="btn btn-danger btn-tone m-r-5" />
+                                </form>
+                            </td>
+                            <td><a asp-action="Index" class="btn btn-primary btn-tone m-r-5">Back to List</a></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="RoleId" />
-        <input type="submit" value="Delete" class="btn btn-danger btn-tone m-r-5" /> 
-        <a asp-action="Index" class="btn btn-primary btn-tone m-r-5">Back to List</a>
-    </form>
+    
 </div>
