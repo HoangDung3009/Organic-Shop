@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,11 @@ namespace Organic_Shop.Areas.Admin.Controllers
     public class AdminRolesController : Controller
     {
         private readonly OrganicShopContext _context;
-
-        public AdminRolesController(OrganicShopContext context)
+        public INotyfService _noTyfService { get; }
+        public AdminRolesController(OrganicShopContext context, INotyfService noTyfService)
         {
             _context = context;
+            _noTyfService = noTyfService;
         }
 
         // GET: Admin/AdminRoles
@@ -60,6 +62,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
             {
                 _context.Add(role);
                 await _context.SaveChangesAsync();
+                _noTyfService.Success("The role has been added !!!");
                 return RedirectToAction(nameof(Index));
             }
             return View(role);
