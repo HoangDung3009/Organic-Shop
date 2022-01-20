@@ -24,6 +24,12 @@ namespace Organic_Shop.Areas.Admin.Controllers
         {
             ViewData["ListRole"] = new SelectList(_context.Roles, "RoleId", "RoleName");
 
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Text = "Active", Value = "1" });
+            list.Add(new SelectListItem() { Text = "Blocked", Value = "0" });
+            ViewData["Status"] = list;
+
+
             var organicShopContext = _context.Accounts.Include(a => a.Role);
             return View(await organicShopContext.ToListAsync());
         }
