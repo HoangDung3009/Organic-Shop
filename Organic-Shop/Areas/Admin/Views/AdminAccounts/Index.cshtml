@@ -51,45 +51,46 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var item in Model)
-                        {
-                        <tr>
-                            <td>
-                                @item.AccountId
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
-                                    <h6 class="m-b-0 m-l-10">@item.FullName</h6>
-                                </div>
-                            </td>
-                            <td>@item.Email</td>
-                            <td>@item.Phone</td>
-                            <td>@item.Role.RoleName</td>
-                            if(@item.Active){
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="badge badge-success badge-dot m-r-10"></div>
-                                    <div>Active</div>
-                                </div>
-                            </td>
+                        @if(Model != null){
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @item.AccountId
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
+                                        <h6 class="m-b-0 m-l-10">@item.FullName</h6>
+                                    </div>
+                                </td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Role.RoleName</td>
+                                if(@item.Active){
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="badge badge-success badge-dot m-r-10"></div>
+                                        <div>Active</div>
+                                    </div>
+                                </td>
+                                }
+                                else {
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="badge badge-danger badge-dot m-r-10"></div>
+                                        <div>Block</div>
+                                    </div>
+                                </td>
+                                }
+                                <td class="text-right">
+                                    <a asp-action="Details" asp-route-id="" class="btn btn-primary btn-tone btn-icon btn-sm"><i class="anticon anticon-eye"></i></a>
+                                    <a asp-action="Edit" asp-route-id="" class="btn btn-success btn-tone btn-icon btn-sm"><i class="anticon anticon-edit"></i></a>
+                                    <a asp-action="Delete" asp-route-id="" class="btn btn-danger btn-tone btn-icon btn-sm"><i class="anticon anticon-delete"></i></a>
+                                </td>
+                            </tr>
                             }
-                            else {
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="badge badge-danger badge-dot m-r-10"></div>
-                                    <div>Block</div>
-                                </div>
-                            </td>
-                            }
-                            <td class="text-right">
-                                <a asp-action="Details" asp-route-id="" class="btn btn-primary btn-tone btn-icon btn-sm"><i class="anticon anticon-eye"></i></a>
-                                <a asp-action="Edit" asp-route-id="" class="btn btn-success btn-tone btn-icon btn-sm"><i class="anticon anticon-edit"></i></a>
-                                <a asp-action="Delete" asp-route-id="" class="btn btn-danger btn-tone btn-icon btn-sm"><i class="anticon anticon-delete"></i></a>
-                            </td>
-                        </tr>
                         }
-                        
                     </tbody>
                 </table>
             </div>
