@@ -23,6 +23,8 @@ namespace Organic_Shop.Areas.Admin.Controllers
         // GET: Admin/AdminProducts
         public IActionResult Index(int? page)
         {
+            
+
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var size = 20;
             var product = _context.Products.Include(c => c.Cat).AsNoTracking().OrderByDescending(x => x.ProductId);
@@ -30,6 +32,8 @@ namespace Organic_Shop.Areas.Admin.Controllers
             PagedList<Product> list = new(product, pageNumber, size);
 
             ViewBag.CurrentPage = pageNumber;
+
+            //ViewBag.ListCategory = new SelectList(_context.Categories, "CatID", "CatName");
             return View(list);
         }
 

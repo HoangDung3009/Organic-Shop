@@ -22,8 +22,8 @@
             <div class="col-lg-8">
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
-                        <select id="idProduct" name="idProduct" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ListRole">
-                            <option value="" disabled>Roles</option>
+                        <select id="idCategory" name="idCategory" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ListCategory">
+                            <option value="" disabled>Categories</option>
                         </select>
                     </div>
                     <div class="m-b-10">
@@ -42,8 +42,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Product name</th>
-                        <th>Thumbnail</th>
+                        <th>Product Name</th>
                         <th>Category</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -66,12 +65,10 @@
                                         <h6 class="m-b-0 m-l-10">@item.ProductName</h6>
                                     </div>
                                 </td>
-                                <td>@item.Thumb</td>
                                 <td>@item.Cat.CatName</td>
                                 <td>@item.Price</td>
                                 <td>@item.UnitsInStock</td>
-                                <td></td>
-                                if(@item.UnitsInStock > 0){
+                                @if(item.Active){
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="badge badge-success badge-dot m-r-10"></div>
@@ -98,7 +95,7 @@
                 </tbody>
             </table>
             <div aria-label="Page navigation example">
-                <ul class="pagination text-left">
+                <ul class="pagination">
                     <pager class="page-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" />
                 </ul>
             </div>
