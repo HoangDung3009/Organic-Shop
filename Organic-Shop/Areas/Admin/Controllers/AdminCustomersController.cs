@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Organic_Shop.Models;
+using PagedList.Core;
 
 namespace Organic_Shop.Areas.Admin.Controllers
 {
@@ -20,10 +21,16 @@ namespace Organic_Shop.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCustomers
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? page)
         {
-            var organicShopContext = _context.Customers.Include(c => c.Location);
-            return View(await organicShopContext.ToListAsync());
+            var pageNumber = page == null || page <= 0 ? 1 : page.Value;
+            var size = 20;
+            var ICustomer = _context.Customers.Include(c => c.Location).AsNoTracking().OrderByDescending(x => x.CustomerId);
+
+            PagedList<Customer> list = new(ICustomer, pageNumber, size);
+
+            ViewBag.CurrentPage = pageNumber;
+            return View(list);
         }
 
         // GET: Admin/AdminCustomers/Details/5
