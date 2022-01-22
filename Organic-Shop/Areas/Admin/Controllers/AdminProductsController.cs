@@ -33,7 +33,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
 
             ViewBag.CurrentPage = pageNumber;
 
-            //ViewBag.ListCategory = new SelectList(_context.Categories, "CatID", "CatName");
+            ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName");
             return View(list);
         }
 
@@ -59,7 +59,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
         // GET: Admin/AdminProducts/Create
         public IActionResult Create()
         {
-            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatId");
+            ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName");
             return View();
         }
 
@@ -76,7 +76,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatId", product.CatId);
+            ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
             return View(product);
         }
 
@@ -93,7 +93,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatId", product.CatId);
+            ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
             return View(product);
         }
 
@@ -129,7 +129,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatId", product.CatId);
+            ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
             return View(product);
         }
 
