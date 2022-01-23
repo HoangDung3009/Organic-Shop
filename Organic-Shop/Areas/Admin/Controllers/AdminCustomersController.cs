@@ -25,9 +25,9 @@ namespace Organic_Shop.Areas.Admin.Controllers
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var size = 20;
-            var ICustomer = _context.Customers.Include(c => c.Location).AsNoTracking().OrderByDescending(x => x.CustomerId);
+            var lsCustomer = _context.Customers.Include(c => c.Location).AsNoTracking().OrderByDescending(x => x.CustomerId);
 
-            PagedList<Customer> list = new(ICustomer, pageNumber, size);
+            PagedList<Customer> list = new(lsCustomer, pageNumber, size);
 
             ViewBag.CurrentPage = pageNumber;
             return View(list);

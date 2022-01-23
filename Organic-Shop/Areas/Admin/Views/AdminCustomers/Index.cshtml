@@ -33,12 +33,12 @@
                     </div>
                 </div>
             </div>
-            @*<div class="col-lg-4 text-right">
+            <div class="col-lg-4 text-right">
                 <button class="btn btn-primary">
                     <i class="anticon anticon-plus-circle m-r-5"></i>
-                    <span>Add Account</span>
+                    <span>Add Customer</span>
                 </button>
-            </div>*@
+            </div>
         </div>
         <div class="table-responsive">
             <table class="table table-hover e-commerce-table">
@@ -100,6 +100,11 @@
                     }
                 </tbody>
             </table>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <pager class="page-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" />
+                </ul>
+            </div>
         </div>
     </div>
 </div>

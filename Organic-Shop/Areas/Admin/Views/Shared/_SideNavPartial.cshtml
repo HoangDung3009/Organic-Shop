@@ -132,7 +132,6 @@
                 </ul>
             </li>
             @* System *@
-
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
@@ -152,10 +151,7 @@
                     </li>
                 </ul>
             </li>
-
             @* Statistics *@
-
-
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
@@ -180,7 +176,6 @@
             </li>
 
             @*News*@
-
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
@@ -223,7 +218,7 @@
             </ul>
         </li>*@
 
-
+            @* Pages *@
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
@@ -236,10 +231,10 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="profile.html">Profile</a>
+                        <a asp-area="Admin" asp-controller="AdminPages" asp-action="Index">Page List</a>
                     </li>
                     <li>
-                        <a href="invoice.html">Invoice</a>
+                        <a href="invoice.html">Add a page</a>
                     </li>
                     <li>
                         <a href="members.html">Members</a>

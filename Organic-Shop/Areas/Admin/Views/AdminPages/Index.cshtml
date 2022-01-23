@@ -1,90 +1,98 @@
-﻿@model IEnumerable<Organic_Shop.Models.Page>
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<Organic_Shop.Models.Page>
 
 @{
-    ViewData["Title"] = "Index";
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Page";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PageName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contents)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Thumb)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Published)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaDesc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaKey)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Alias)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ordering)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PageName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contents)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Thumb)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Published)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaDesc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaKey)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alias)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ordering)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PageId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PageId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PageId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a asp-area="AdminPages" asp-controller="Home" asp-action="Index" class="breadcrumb-item">Page</a>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-lg-8">
+                <div class="d-md-flex">
+                    <div class="m-b-10">
+                        <select id="idPageStatus" name="idPageStatus" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.PageStatus">
+                            <option value="" disabled>Status</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-right">
+                <a asp-action="Create" class="btn btn-primary btn-tone">Add Page</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        @foreach (var item in Model)
+                        {
+                    <tr>
+                        <td>
+                            @item.PageId
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
+                                <h6 class="m-b-0 m-l-10">@item.PageName</h6>
+                            </div>
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        @if (item.Published)
+                        {
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="badge badge-success badge-dot m-r-10"></div>
+                                    <div>Published</div>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="badge badge-danger badge-dot m-r-10"></div>
+                                    <div>Private</div>
+                                </div>
+                            </td>
+                        }
+                        <td class="text-right">
+                            <a asp-action="Details" asp-route-id="@item.PageId" class="btn btn-primary btn-tone btn-icon btn-sm"><i class="anticon anticon-eye"></i></a>
+                            <a asp-action="Edit" asp-route-id="@item.PageId" class="btn btn-success btn-tone btn-icon btn-sm"><i class="anticon anticon-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.PageId" class="btn btn-danger btn-tone btn-icon btn-sm"><i class="anticon anticon-delete"></i></a>
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <pager class="page-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
