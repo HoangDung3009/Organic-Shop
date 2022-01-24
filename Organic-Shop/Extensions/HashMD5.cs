@@ -9,16 +9,16 @@ namespace Organic_Shop.Extensions
 {
     public static class HashMD5
     {
-        public static string createMD5(this string str)
+        public static string CreateMD5(this string str)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] hashByte = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
-            StringBuilder hashSB = new StringBuilder();
-            foreach(byte b in hashByte)
+            byte[] HashByte = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+            StringBuilder HashSB = new StringBuilder();
+            foreach(byte b in HashByte)
             {
-                hashSB.Append(String.Format("{0:x2}", b));
+                HashSB.Append(String.Format("{0:x2}", b));
             }
-            return hashSB.ToString();
+            return HashSB.ToString();
         }
 
     }

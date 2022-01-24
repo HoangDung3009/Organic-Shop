@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Organic_Shop.Extensions
 {
-    public static class Extension
+    public static class Extensions
     {
         public static string FormatPrice(this double price)
         {
@@ -24,7 +24,7 @@ namespace Organic_Shop.Extensions
 
                     if (s.Length > 0)
                     {
-                        substr[i] = s[0].ToString().ToUpper() + s.Substring(1);
+                        substr[i] = s[0].ToString().ToUpper() + s[1..];
                     }
                     result = string.Join(" ", substr[i]);
                 }
