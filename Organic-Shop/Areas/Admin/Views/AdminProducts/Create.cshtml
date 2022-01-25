@@ -12,16 +12,10 @@
     <div class="page-header no-gutters has-tab">
         <div class="d-md-flex m-b-15 align-items-center justify-content-between">
             <div class="media align-items-center m-b-15">
-                <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
-                    <img src="assets/images/others/thumb-16.jpg" alt="">
-                </div>
-                <div class="m-l-15">
-                    <h4 class="m-b-0">Skinny Men Blazer</h4>
-                    <p class="text-muted m-b-0">Code: #5325</p>
-                </div>
+                
             </div>
             <div class="m-b-15">
-                <button class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">
                     <i class="anticon anticon-save"></i>
                     <span>Save</span>
                 </button>
@@ -44,26 +38,60 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="control-label font-weight-semibold">Product Name :</label>
+                        <label class="control-label font-weight-semibold">Product Name</label>
                         <input asp-for="ProductName" class="form-control" placeholder="Enter product name" />
                         <span asp-validation-for="ProductName" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label font-weight-semibold">Price :</label>
-                        <input asp-for="Price" class="form-control" placeholder="Enter price" />
-                        <span asp-validation-for="Price" class="text-danger"></span>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label font-weight-semibold">Price</label>
+                            <input asp-for="Price" class="form-control" placeholder="Enter price" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label font-weight-semibold">Discount</label>
+                            <input asp-for="Discount" class="form-control" placeholder="Enter discount" />
+                            <span asp-validation-for="Discount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label font-weight-semibold">Category</label>
+                            <select class="custom-select" asp-for="CatId" asp-items="ViewBag.ListCategory">
+                                <option value="cloths" selected disabled>Category</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label font-weight-semibold">Quantity</label>
+                            <input asp-for="UnitsInStock" class="form-control" />
+                            <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label font-weight-semibold">Category :</label>
-                        <select class="custom-select" asp-for="CatId" asp-items="ViewBag.ListCategory">
-                            <option value="cloths" selected disabled>Category</option>
-                        </select>
+                        <label class="control-label font-weight-semibold">Thumbnail</label>
+                        <input name="fThumb" type="file" asp-for="Thumb" class="form-control-file" />
+                        <span asp-validation-for="Thumb" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-semibold" for="productStatus">Status :</label>
-                        <select class="custom-select" asp-for="Active" asp-items="ViewBag.ProductStatus">
-                            <option value="cloths" selected disabled>Status</option>
-                        </select>
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" asp-for="Active">
+                            <label for="Active"></label>
+                        </div>
+                        <label>Active</label>
+                    </div>
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" asp-for="HomeFlag">
+                            <label for="HomeFlag"></label>
+                        </div>
+                        <label>HomeFlag</label>
+                    </div>
+                    <div class="form-group d-flex align-items-center">
+                        <div class="switch m-r-10">
+                            <input type="checkbox" asp-for="BestSellers">
+                            <label for="BestSellers"></label>
+                        </div>
+                        <label>BestSellers</label>
                     </div>
                 </div>
             </div>
@@ -72,46 +100,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="font-weight-semibold" for="productSize">Size</label>
-                        <select class="select2" id="productSize" multiple="multiple">
-                            <option value="40" selected>40</option>
-                            <option value="42" selected>42</option>
-                            <option value="44">44</option>
-                            <option value="46">46</option>
-                            <option value="48">48</option>
-                            <option value="50">50</option>
-                        </select>
+                        <div class="form-group">
+                            <label class="control-labe font-weight-semibold">MetaDesc :</label>
+                            <input asp-for="MetaDesc" class="form-control" />
+                            <span asp-validation-for="MetaDesc" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-semibold" for="productColors">Colors</label>
-                        <select class="select2" id="productColors" multiple="multiple">
-                            <option value="db" selected>Dark Blue</option>
-                            <option value="g" selected>Gray</option>
-                            <option value="gb" selected>Gray Blue</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-semibold" for="productFit">Fit</label>
-                        <select class="custom-select" id="productFit">
-                            <option value="skinny" selected>Skinny</option>
-                            <option value="slim">Slim</option>
-                            <option value="regular">Regular</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-semibold" for="productMaterial">Material</label>
-                        <select class="select2" id="productMaterial" multiple="multiple">
-                            <option value="polyester" selected>Polyester</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-semibold" for="productShip">Ship From</label>
-                        <select class="custom-select" id="productShip">
-                            <option value="columbia" selected>Columbia</option>
-                            <option value="brazil">Brazil</option>
-                            <option value="chile">Chile</option>
-                            <option value="argentina">Argentina</option>
-                        </select>
+                        <div class="form-group">
+                            <label class="control-label font-weight-semibold">MetaKey :</label>
+                            <input asp-for="MetaKey" class="form-control" />
+                            <span asp-validation-for="MetaKey" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,114 +133,4 @@
 </form>
 
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShortDesc" class="control-label"></label>
-                <input asp-for="ShortDesc" class="form-control" />
-                <span asp-validation-for="ShortDesc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CatId" class="control-label"></label>
-                <select asp-for="CatId" class ="form-control" asp-items="ViewBag.CatId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Discount" class="control-label"></label>
-                <input asp-for="Discount" class="form-control" />
-                <span asp-validation-for="Discount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Thumb" class="control-label"></label>
-                <input asp-for="Thumb" class="form-control" />
-                <span asp-validation-for="Thumb" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Video" class="control-label"></label>
-                <input asp-for="Video" class="form-control" />
-                <span asp-validation-for="Video" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateModified" class="control-label"></label>
-                <input asp-for="DateModified" class="form-control" />
-                <span asp-validation-for="DateModified" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="BestSellers" /> @Html.DisplayNameFor(model => model.BestSellers)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HomeFlag" /> @Html.DisplayNameFor(model => model.HomeFlag)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tags" class="control-label"></label>
-                <input asp-for="Tags" class="form-control" />
-                <span asp-validation-for="Tags" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Alias" class="control-label"></label>
-                <input asp-for="Alias" class="form-control" />
-                <span asp-validation-for="Alias" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetaDesc" class="control-label"></label>
-                <input asp-for="MetaDesc" class="form-control" />
-                <span asp-validation-for="MetaDesc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetaKey" class="control-label"></label>
-                <input asp-for="MetaKey" class="form-control" />
-                <span asp-validation-for="MetaKey" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnitsInStock" class="control-label"></label>
-                <input asp-for="UnitsInStock" class="form-control" />
-                <span asp-validation-for="UnitsInStock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

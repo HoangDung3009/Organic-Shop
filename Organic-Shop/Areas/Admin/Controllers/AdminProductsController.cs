@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Organic_Shop.Helpper;
 using Organic_Shop.Models;
 using PagedList.Core;
 
@@ -34,6 +36,12 @@ namespace Organic_Shop.Areas.Admin.Controllers
             ViewBag.CurrentPage = pageNumber;
 
             ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName");
+
+            List<SelectListItem> list1 = new List<SelectListItem>();
+            list1.Add(new SelectListItem() { Text = "In stock", Value = "1" });
+            list1.Add(new SelectListItem() { Text = "Out of stock", Value = "0" });
+            ViewData["ProductStatus"] = list1;
+
             return View(list);
         }
 
@@ -60,12 +68,6 @@ namespace Organic_Shop.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName");
-
-            List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem() { Text = "In stock", Value = "1" });
-            list.Add(new SelectListItem() { Text = "Out of stock", Value = "0" });
-            ViewData["ProductStatus"] = list;
-
             return View();
         }
 
@@ -74,10 +76,21 @@ namespace Organic_Shop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (ModelState.IsValid)
             {
+
+                if(fThumb != null)
+                {
+                    string extension = Path.GetExtension(fThumb.FileName);
+                    string image = Utilities.SEOUrl(product.ProductName) + extension;
+                    product.Thumb = await Utilities.UploadFile(fThumb, @"products", image.ToLower());
+                }
+                if (string.IsNullOrEmpty(product.Thumb)) product.Thumb = "default.jpg";
+                product.Alias = product.ProductName.ToLower().Replace(" ", "-");
+                product.DateCreated = DateTime.Now;
+                product.DateModified = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
