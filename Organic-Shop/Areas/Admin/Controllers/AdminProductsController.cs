@@ -60,6 +60,12 @@ namespace Organic_Shop.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName");
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Text = "In stock", Value = "1" });
+            list.Add(new SelectListItem() { Text = "Out of stock", Value = "0" });
+            ViewData["ProductStatus"] = list;
+
             return View();
         }
 
