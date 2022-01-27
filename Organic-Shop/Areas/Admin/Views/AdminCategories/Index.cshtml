@@ -1,9 +1,9 @@
 ﻿@using PagedList.Core.Mvc
-@model PagedList.Core.IPagedList<Organic_Shop.Models.Product>
+@model PagedList.Core.IPagedList<Organic_Shop.Models.Category>
 
 @{
     int CurrentPage = ViewBag.CurrentPage;
-    ViewData["Title"] = "Category List - Page " + CurrentPage;
+    ViewData["Title"] = "Product List - Page " + CurrentPage;
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -24,7 +24,7 @@
                     <div class="m-b-10 m-r-15">
                         <select id="idCategory" name="idCategory" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ListCategory">
                             <option value="" disabled>Categories</option>
-                            <option value="" >All</option>
+                            <option value="">All</option>
                         </select>
                     </div>
                     <div class="m-b-10">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-lg-4 text-right">
-                <a asp-action="Create" class="btn btn-primary btn-tone"><i class="anticon anticon-plus-circle"></i> Add Category</a>
+                <a asp-action="Create" class="btn btn-primary btn-tone"><i class="anticon anticon-plus-circle"></i> Add Product</a>
             </div>
         </div>
         <div class="table-responsive">
@@ -43,11 +43,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Product Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
+                        <th>Category Name</th>`
+                        <th>Description</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -58,37 +55,19 @@
                         {
                             <tr>
                                 <td>
-                                    @item.ProductId
+                                    @item.CatId
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
-                                        <h6 class="m-b-0 m-l-10">@item.ProductName</h6>
+                                        <h6 class="m-b-0 m-l-10">@item.CatName</h6>
                                     </div>
                                 </td>
-                                <td>@item.Cat.CatName</td>
-                                <td>@item.Price</td>
-                                <td>@item.UnitsInStock</td>
-                                @if(item.Active){
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="badge badge-success badge-dot m-r-10"></div>
-                                        <div>In Stock</div>
-                                    </div>
-                                </td>
-                                }
-                                else {
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="badge badge-danger badge-dot m-r-10"></div>
-                                        <div>Out of Stock</div>
-                                    </div>
-                                </td>
-                                }
+                                <td><p>@item.Description</p></td>
                                 <td class="text-right">
-                                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-primary btn-tone btn-icon btn-sm"><i class="anticon anticon-eye"></i></a>
-                                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-success btn-tone btn-icon btn-sm"><i class="anticon anticon-edit"></i></a>
-                                    <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-tone btn-icon btn-sm"><i class="anticon anticon-delete"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.CatId" class="btn btn-primary btn-tone btn-icon btn-sm"><i class="anticon anticon-eye"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.CatId" class="btn btn-success btn-tone btn-icon btn-sm"><i class="anticon anticon-edit"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.CatId" class="btn btn-danger btn-tone btn-icon btn-sm"><i class="anticon anticon-delete"></i></a>
                                 </td>
                             </tr>
                         }
@@ -97,7 +76,7 @@
             </table>
             <div aria-label="Page navigation example">
                 <ul class="pagination">
-                    <pager class="page-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" />
+                    <pager class="page-container" list="@Model" asp-area="Admin" asp-controller="AdminCategories" asp-action="Index" />
                 </ul>
             </div>
         </div>
