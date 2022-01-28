@@ -3,7 +3,7 @@
 
 @{
     int CurrentPage = ViewBag.CurrentPage;
-    ViewData["Title"] = "Product List - Page " + CurrentPage;
+    ViewData["Title"] = "Category List - Page " + CurrentPage;
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -22,20 +22,20 @@
             <div class="col-lg-8">
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
-                        <select id="idCategory" name="idCategory" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ListCategory">
+                        @*<select id="idCategory" name="idCategory" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ListCategory">
                             <option value="" disabled>Categories</option>
                             <option value="">All</option>
-                        </select>
+                        </select>*@
                     </div>
                     <div class="m-b-10">
-                        <select id="idStatusProduct" name="idStatusProduct" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ProductStatus">
+                        @*<select id="idStatusProduct" name="idStatusProduct" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ProductStatus">
                             <option value="" disabled>Status</option>
-                        </select>
+                        </select>*@
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 text-right">
-                <a asp-action="Create" class="btn btn-primary btn-tone"><i class="anticon anticon-plus-circle"></i> Add Product</a>
+                <a asp-action="Create" class="btn btn-primary btn-tone"><i class="anticon anticon-plus-circle"></i> Add Category</a>
             </div>
         </div>
         <div class="table-responsive">
