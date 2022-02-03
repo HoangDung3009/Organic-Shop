@@ -22,9 +22,12 @@
             <div class="col-lg-8">
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
+                           <input type="text"  class="form-control" id="keyword" placeholder="Search Product">
+                    </div>
+                    <div class="m-b-10 m-r-15">
                         <select id="idCategory" name="idCategory" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.ListCategory">
                             <option value="" disabled>Categories</option>
-                            <option value="" >All</option>
+                            <option value="">All</option>
                         </select>
                     </div>
                     <div class="m-b-10">
@@ -52,7 +55,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="search_table">
                     @if (Model != null)
                     {
                         @foreach (var item in Model)
@@ -105,3 +108,29 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#keyword").keyup(function () {
+                var str = $("#keyword").val();
+                $.ajax({
+                    url: "/Admin/Search/SearchProduct/",
+                    datatype: "json",
+                    method: "post",
+                    data: { keyword: str },
+                    async: true,
+                    success: function (result) {
+                        $("#search_table").html("");
+                        $("#search_table").html(result);
+
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+        });
+    </script>
+}
