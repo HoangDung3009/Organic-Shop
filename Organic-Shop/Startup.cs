@@ -30,7 +30,7 @@ namespace Organic_Shop
             services.AddNotyf(config =>
             {
                 config.DurationInSeconds = 10;
-                config.IsDismissable = true; config.Position = NotyfPosition.BottomRight;
+                config.IsDismissable = true; config.Position = NotyfPosition.TopRight;
             });
             services.AddDbContext<OrganicShopContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OrganicShopConnection")));
         }

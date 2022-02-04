@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,12 @@ namespace Organic_Shop.Areas.Admin.Controllers
     public class AdminProductsController : Controller
     {
         private readonly OrganicShopContext _context;
+        public INotyfService _noTyfService { get; }
 
-        public AdminProductsController(OrganicShopContext context)
+        public AdminProductsController(OrganicShopContext context, INotyfService noTyfService)
         {
             _context = context;
+            _noTyfService = noTyfService;
         }
 
         // GET: Admin/AdminProducts
@@ -93,6 +96,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
                 product.DateModified = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                _noTyfService.Success("The product has been added !!!");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);

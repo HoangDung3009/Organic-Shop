@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,12 @@ namespace Organic_Shop.Areas.Admin.Controllers
     public class AdminCategoriesController : Controller
     {
         private readonly OrganicShopContext _context;
+        public INotyfService _noTyfService { get; }
 
-        public AdminCategoriesController(OrganicShopContext context)
+        public AdminCategoriesController(OrganicShopContext context, INotyfService noTyfService)
         {
             _context = context;
+            _noTyfService = noTyfService;
         }
 
         // GET: Admin/AdminCategories
@@ -69,6 +72,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
+                _noTyfService.Success("The category has been added !!!");
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -151,6 +155,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
             var category = await _context.Categories.FindAsync(id);
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
+            _noTyfService.Success("The category has been deleted !!!");
             return RedirectToAction(nameof(Index));
         }
 
