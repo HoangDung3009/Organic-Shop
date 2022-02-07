@@ -20,14 +20,8 @@
         </div>
 
         <div class="m-b-15">
-            <button class="btn btn-success btn-tone">
-                <i class="anticon anticon-edit"></i>
-                <span>Edit</span>
-            </button>
-            <button class="btn btn-primary btn-tone">
-                <i class="anticon anticon-arrow-left"></i>
-                <span>Back to list</span>
-            </button>
+            <a type="button" asp-area="Admin" asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-success btn-tone"><i class="anticon anticon-edit"></i> Edit</a>
+            <a type="button" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="btn btn-primary btn-tone"><i class="anticon anticon-arrow-left"></i> Back to list</a>
         </div>
     </div>
     <ul class="nav nav-tabs">
