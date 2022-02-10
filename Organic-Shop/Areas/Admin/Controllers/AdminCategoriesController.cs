@@ -76,7 +76,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
                 {
                     string extension = Path.GetExtension(fThumb.FileName);
                     string image = Utilities.SEOUrl(category.CatName) + extension;
-                    category.Thumb = await Utilities.UploadFile(fThumb, @"products", image.ToLower());
+                    category.Thumb = await Utilities.UploadFile(fThumb, @"categories", image.ToLower());
                 }
                 if (string.IsNullOrEmpty(category.Thumb)) category.Thumb = "default.jpg";
                 category.Alias = category.CatName.ToLower().Replace(" ", "-");
@@ -124,12 +124,13 @@ namespace Organic_Shop.Areas.Admin.Controllers
                     {
                         string extension = Path.GetExtension(fThumb.FileName);
                         string image = Utilities.SEOUrl(category.CatName) + extension;
-                        category.Thumb = await Utilities.UploadFile(fThumb, @"products", image.ToLower());
+                        category.Thumb = await Utilities.UploadFile(fThumb, @"categories", image.ToLower());
                     }
                     if (string.IsNullOrEmpty(category.Thumb)) category.Thumb = "default.jpg";
                     category.Alias = category.CatName.ToLower().Replace(" ", "-");
                     _context.Update(category);
                     await _context.SaveChangesAsync();
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -142,6 +143,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
                         throw;
                     }
                 }
+                _noTyfService.Success("Updated!!");
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
