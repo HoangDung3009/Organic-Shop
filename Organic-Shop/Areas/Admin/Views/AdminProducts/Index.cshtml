@@ -74,19 +74,34 @@
                         <td>@item.UnitsInStock</td>
                         @if (item.Active)
                         {
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="badge badge-success badge-dot m-r-10"></div>
-                                    <div>In Stock</div>
-                                </div>
-                            </td>
+                            @if (item.UnitsInStock > 0)
+                            {
+
+
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="badge badge-success badge-dot m-r-10"></div>
+                                        <div>In Stock</div>
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="badge badge-danger badge-dot m-r-10"></div>
+                                        <div>Out of Stock</div>
+                                    </div>
+                                </td>
+                            }
+
                         }
                         else
                         {
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <div class="badge badge-danger badge-dot m-r-10"></div>
-                                    <div>Out of Stock</div>
+                                    <div class="badge badge-warning badge-dot m-r-10"></div>
+                                    <div>Not Public</div>
                                 </div>
                             </td>
                         }

@@ -143,7 +143,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                _noTyfService.Success("Updated!!");
+                _noTyfService.Success("Category updated!!");
                 return RedirectToAction(nameof(Index));
             }
             return View(category);

@@ -57,19 +57,32 @@
                                 </tr>
                                 @if (Model.Active)
                                 {
-                                    <tr>
-                                        <td>Status:</td>
-                                        <td>
-                                            <span class="badge badge-pill badge-cyan">In Stock</span>
-                                        </td>
-                                    </tr>
+                                    @if (Model.UnitsInStock > 0)
+                                    {
+                                        <tr>
+                                            <td>Status:</td>
+                                            <td>
+                                                <span class="badge badge-pill badge-cyan">In Stock</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>Status:</td>
+                                            <td>
+                                                <span class="badge badge-pill badge-red">Out of stock</span>
+                                            </td>
+                                        </tr>
+                                    }
+
                                 }
                                 else
                                 {
                                     <tr>
                                         <td>Status:</td>
                                         <td>
-                                            <span class="badge badge-pill badge-red">Out of stock</span>
+                                            <span class="badge badge-pill badge-gold">Not Public</span>
                                         </td>
                                     </tr>
                                 }

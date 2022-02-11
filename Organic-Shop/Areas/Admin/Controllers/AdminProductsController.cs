@@ -31,7 +31,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
             
 
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
-            var size = 20;
+            var size = 10;
             var product = _context.Products.Include(c => c.Cat).AsNoTracking().OrderByDescending(x => x.ProductId);
 
             PagedList<Product> list = new(product, pageNumber, size);

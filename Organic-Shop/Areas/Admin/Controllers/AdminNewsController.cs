@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Organic_Shop.Models;
+using PagedList.Core;
 
 namespace Organic_Shop.Areas.Admin.Controllers
 {
@@ -20,9 +21,16 @@ namespace Organic_Shop.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminNews
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? page)
         {
-            return View(await _context.TinDangs.ToListAsync());
+            var pageNumber = page == null || page <= 0 ? 1 : page.Value;
+            var size = 20;
+            var tin = _context.TinDangs.AsNoTracking().OrderByDescending(x => x.PostId);
+
+            PagedList<TinDang> list = new(tin, pageNumber, size);
+
+            ViewBag.CurrentPage = pageNumber;
+            return View(list);
         }
 
         // GET: Admin/AdminNews/Details/5
