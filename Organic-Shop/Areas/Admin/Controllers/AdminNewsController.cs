@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Organic_Shop.Helpper;
 using Organic_Shop.Models;
 using PagedList.Core;
 
@@ -62,10 +64,19 @@ namespace Organic_Shop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,Scontents,Contents,Thumb,Published,Alias,CreatedDate,Author,AccountId,Tags,CatId,IsHot,IsNewfeed,MetaKey,MetaDesc,Views")] TinDang tinDang)
+        public async Task<IActionResult> Create([Bind("PostId,Title,Scontents,Contents,Thumb,Published,Alias,CreatedDate,Author,AccountId,Tags,CatId,IsHot,IsNewfeed,MetaKey,MetaDesc,Views")] TinDang tinDang, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (ModelState.IsValid)
             {
+                if (fThumb != null)
+                {
+                    string extension = Path.GetExtension(fThumb.FileName);
+                    string image = Utilities.SEOUrl(tinDang.Title) + extension;
+                    tinDang.Thumb = await Utilities.UploadFile(fThumb, @"news", image.ToLower());
+                }
+                if (string.IsNullOrEmpty(tinDang.Thumb)) tinDang.Thumb = "default.jpg";
+                tinDang.Alias = tinDang.Title.ToLower().Replace(" ", "-");
+                tinDang.CreatedDate = DateTime.Now;
                 _context.Add(tinDang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +105,7 @@ namespace Organic_Shop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,Scontents,Contents,Thumb,Published,Alias,CreatedDate,Author,AccountId,Tags,CatId,IsHot,IsNewfeed,MetaKey,MetaDesc,Views")] TinDang tinDang)
+        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,Scontents,Contents,Thumb,Published,Alias,CreatedDate,Author,AccountId,Tags,CatId,IsHot,IsNewfeed,MetaKey,MetaDesc,Views")] TinDang tinDang, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (id != tinDang.PostId)
             {
@@ -105,6 +116,15 @@ namespace Organic_Shop.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (fThumb != null)
+                    {
+                        string extension = Path.GetExtension(fThumb.FileName);
+                        string image = Utilities.SEOUrl(tinDang.Title) + extension;
+                        tinDang.Thumb = await Utilities.UploadFile(fThumb, @"news", image.ToLower());
+                    }
+                    if (string.IsNullOrEmpty(tinDang.Thumb)) tinDang.Thumb = "default.jpg";
+                    tinDang.Alias = tinDang.Title.ToLower().Replace(" ", "-");
+                    tinDang.CreatedDate = DateTime.Now;
                     _context.Update(tinDang);
                     await _context.SaveChangesAsync();
                 }

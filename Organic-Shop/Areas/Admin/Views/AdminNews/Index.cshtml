@@ -36,7 +36,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Short Description</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -46,40 +47,46 @@
                     {
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @item.PostId
-                                </td>
+                    <tr>
+                        <td>
+                            @item.PostId
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
+                                <h6 class="m-b-0 m-l-10">@item.Title</h6>
+                            </div>
+                        </td>
+                        <td style="width: 300px">
+                            <p>@item.Scontents</p>
+                        </td>
+                        @if (item.Published)
+                            {
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img class="img-fluid rounded" src="assets/images/others/thumb-9.jpg" style="max-width: 60px" alt="">
-                                        <h6 class="m-b-0 m-l-10">@item.Title</h6>
+                                        <div class="badge badge-success badge-dot m-r-10"></div>
+                                        <div>Published</div>
                                     </div>
                                 </td>
-                                @if (item.Published)
-                                {
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="badge badge-success badge-dot m-r-10"></div>
-                                            <div>Published</div>
-                                        </div>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="badge badge-danger badge-dot m-r-10"></div>
-                                            <div>Private</div>
-                                        </div>
-                                    </td>
-                                }
-                                <td class="text-right">
-                                    <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-primary btn-tone btn-icon btn-sm"><i class="anticon anticon-eye"></i></a>
-                                    <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-success btn-tone btn-icon btn-sm"><i class="anticon anticon-edit"></i></a>
-                                    <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-danger btn-tone btn-icon btn-sm"><i class="anticon anticon-delete"></i></a>
-                                </td>
-                            </tr>
+                            }
+
+
+                         else
+                            {
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="badge badge-danger badge-dot m-r-10"></div>
+                            <div>Private</div>
+                        </div>
+                    </td>
+                            }
+                          
+                        <td class="text-right">
+                            <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-primary btn-tone btn-icon btn-sm"><i class="anticon anticon-eye"></i></a>
+                            <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-success btn-tone btn-icon btn-sm"><i class="anticon anticon-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-danger btn-tone btn-icon btn-sm"><i class="anticon anticon-delete"></i></a>
+                        </td>
+                    </tr>
                         }
                     }
                 </tbody>
