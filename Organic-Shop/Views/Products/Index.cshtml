@@ -64,11 +64,11 @@
                             <div class="product-grid-view row">
                                 @if(Model != null) {
                                     foreach(var item in Model) {
-                                        
+                                        string url = $"/san-pham/{item.Alias}-{item.ProductId}" ; 
                                 <div class="col-lg-3 col-sm-6 pt-6 pt-lg-0">
                                     <div class="product-item">
                                         <div class="product-img img-zoom-effect">
-                                            <a href="single-product.html">
+                                            <a href="@url">
                                                 <img class="img-full" style="width:270px; height: 300px;" src="~/images/products/@item.Thumb" alt="Product Images">
                                             </a>
                                             <div class="product-add-action">
@@ -92,7 +92,7 @@
                                             </div>
                                         </div>
                                         <div class="product-content">
-                                            <a class="product-name" href="single-product.html">@item.ProductName</a>
+                                            <a class="product-name" href="@url">@item.ProductName</a>
                                             <div class="price-box pb-1">
                                                 <span class="new-price">@item.Price VND</span>
                                             </div>

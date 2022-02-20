@@ -18,6 +18,7 @@ namespace Organic_Shop.Controllers
         {
             this._context = _context; 
         }
+        [Route("/san-pham/", Name = "Index")]
         public IActionResult Index(int? page)
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
@@ -37,6 +38,7 @@ namespace Organic_Shop.Controllers
             return View(list);
         }
 
+        [Route("/san-pham/{Alias}-{id}", Name ="Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,7 +53,7 @@ namespace Organic_Shop.Controllers
                 return NotFound();
             }
 
-            return View();
+            return View(product);
         }
     }
 }
