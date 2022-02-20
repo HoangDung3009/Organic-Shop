@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Organic_Shop.Models;
+using PagedList.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,23 @@ namespace Organic_Shop.Controllers
         {
             this._context = _context; 
         }
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            return View();
+            var pageNumber = page == null || page <= 0 ? 1 : page.Value;
+            var size = 12;
+            var product = _context.Products.Include(c => c.Cat).AsNoTracking().Where(x => x.UnitsInStock > 0 && x.Active).OrderByDescending(x => x.ProductId);
+
+            PagedList<Product> list = new(product, pageNumber, size);
+
+            ViewBag.CurrentPage = pageNumber;
+
+            ViewData["ListCategory"] = new SelectList(_context.Categories, "CatId", "CatName");
+
+            List<SelectListItem> list1 = new List<SelectListItem>();
+            list1.Add(new SelectListItem() { Text = "In stock", Value = "1" });
+            list1.Add(new SelectListItem() { Text = "Out of stock", Value = "0" });
+            ViewData["ProductStatus"] = list1;
+            return View(list);
         }
 
         public async Task<IActionResult> Details(int? id)
