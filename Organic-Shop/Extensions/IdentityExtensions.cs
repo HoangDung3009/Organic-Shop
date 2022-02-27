@@ -15,7 +15,7 @@ namespace Organic_Shop.Extensions
             return (claim != null) ? claim.Value : string.Empty;
         }
 
-        public static string GetỦeID(this IIdentity identiy)
+        public static string GetUserID(this IIdentity identiy)
         {
             var claim = ((ClaimsIdentity)identiy).FindFirst("AccountId");
             return (claim != null) ? claim.Value : string.Empty;
